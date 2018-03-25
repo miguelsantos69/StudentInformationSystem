@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Teacher
  *
@@ -76,7 +76,7 @@ class Teacher implements UserInterface
      * @ORM\ManyToMany(targetEntity="Subject", inversedBy="teachers")
      */
     private $subjects;
-    
+
     public function __construct()
         {
             $this->subjects = new ArrayCollection();

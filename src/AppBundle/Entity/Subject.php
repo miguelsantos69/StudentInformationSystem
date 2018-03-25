@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Subject
@@ -30,9 +31,15 @@ class Subject
     
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="subjects")
+     * @ORM\ManyToMany(targetEntity="Teacher", mappedBy="subjects")
      */
     private $teachers;
+
+
+    public function __construct() {
+        
+        $this->teachers = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -68,10 +75,7 @@ class Subject
         return $this->title;
     }
     
-    public function __construct()
-    {
-        $this->teachers = new ArrayCollection();
-    }
+
 
     /**
      * Add teacher

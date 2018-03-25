@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}   {% endblock %}
+
+
+{% block body %}
+
+    <table>
+        <tr>
+{#            {% for teacher in teachers %}
+
+                <td>{{ dump(teacher) }}</td>
+
+            </tr>
+        {% endfor %}#}
+    </table>
+
+    {{ dump() }}
+{% endblock %}
+
+
