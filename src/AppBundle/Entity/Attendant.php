@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Attendant
@@ -63,6 +64,16 @@ class Attendant
      */
     private $phone;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Student", mappedBy="attendants")
+     * 
+     */
+    private $students;
+
+    public function __construct() {
+        
+        $this->students = new ArrayCollection;
+    }
 
     /**
      * Get id
@@ -216,5 +227,39 @@ class Attendant
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Add student
+     *
+     * @param \AppBundle\Entity\Student $student
+     *
+     * @return Attendant
+     */
+    public function addStudent(\AppBundle\Entity\Student $student)
+    {
+        $this->students[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \AppBundle\Entity\Student $student
+     */
+    public function removeStudent(\AppBundle\Entity\Student $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -70,8 +71,32 @@ class Student implements UserInterface
      * @ORM\Column(name="birthday", type="date")
      */
     private $birthday;
+    
+    /**
+     *
+     * @var string
+     * 
+     * @ORM\Column(name="gender", type="string", length=15)
+     */
+    private $gender;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Classroom")
+     * @ORM\JoinColumn(name="classroom_id", referencedColumnName="id")
+     */
+    private $classrooms;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity="Attendant", inversedBy="students")
+     * @ORM\JoinColumn(name="attendant_id", referencedColumnName="id")
+     */
+    private $attendants;
+        
+    public function __construct() {
+        
+        $this->attendants = new ArrayCollection;
+    }
+    
     /**
      * Get id
      *
@@ -266,4 +291,111 @@ class Student implements UserInterface
         
     }
 
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     *
+     * @return Student
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+    
+
+        /**
+     * Set classroom
+     *
+     * @param \AppBundle\Entity\Classroom $classroom
+     *
+     * @return Student
+     */
+    public function setClassroom(\AppBundle\Entity\Classroom $classroom = null)
+    {
+        $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    /**
+     * Get classroom
+     *
+     * @return \AppBundle\Entity\Classroom
+     */
+    public function getClassroom()
+    {
+        return $this->classroom;
+    }
+
+    /**
+     * Add attendant
+     *
+     * @param \AppBundle\Entity\Attendant $attendant
+     *
+     * @return Student
+     */
+    public function addAttendant(\AppBundle\Entity\Attendant $attendant)
+    {
+        $this->attendants[] = $attendant;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendant
+     *
+     * @param \AppBundle\Entity\Attendant $attendant
+     */
+    public function removeAttendant(\AppBundle\Entity\Attendant $attendant)
+    {
+        $this->attendants->removeElement($attendant);
+    }
+
+    /**
+     * Get attendants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendants()
+    {
+        return $this->attendants;
+    }
+
+    /**
+     * Set classrooms
+     *
+     * @param \AppBundle\Entity\Classroom $classrooms
+     *
+     * @return Student
+     */
+    public function setClassrooms(\AppBundle\Entity\Classroom $classrooms = null)
+    {
+        $this->classrooms = $classrooms;
+
+        return $this;
+    }
+
+    /**
+     * Get classrooms
+     *
+     * @return \AppBundle\Entity\Classroom
+     */
+    public function getClassrooms()
+    {
+        return $this->classrooms;
+    }
 }

@@ -36,14 +36,16 @@ class Notes
     private $date;
 
     /**
-     *
+     * @ORM\ManyToOne(targetEntity="Student")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
      */
-    private $student;
+    private $students;
 
     /**
-     * 
+     * @ORM\ManyToOne(targetEntity="Teacher")
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
      */
-    private $teacher;
+    private $teachers;
 
 
     /**
@@ -150,5 +152,53 @@ class Notes
     public function getTeacher()
     {
         return $this->teacher;
+    }
+
+    /**
+     * Set students
+     *
+     * @param \AppBundle\Entity\Student $students
+     *
+     * @return Notes
+     */
+    public function setStudents(\AppBundle\Entity\Student $students = null)
+    {
+        $this->students = $students;
+
+        return $this;
+    }
+
+    /**
+     * Get students
+     *
+     * @return \AppBundle\Entity\Student
+     */
+    public function getStudents()
+    {
+        return $this->students;
+    }
+
+    /**
+     * Set teachers
+     *
+     * @param \AppBundle\Entity\Teacher $teachers
+     *
+     * @return Notes
+     */
+    public function setTeachers(\AppBundle\Entity\Teacher $teachers = null)
+    {
+        $this->teachers = $teachers;
+
+        return $this;
+    }
+
+    /**
+     * Get teachers
+     *
+     * @return \AppBundle\Entity\Teacher
+     */
+    public function getTeachers()
+    {
+        return $this->teachers;
     }
 }

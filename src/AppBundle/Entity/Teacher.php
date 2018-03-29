@@ -72,14 +72,19 @@ class Teacher implements UserInterface
     private $phone;
     
     /**
-     *
      * @ORM\ManyToMany(targetEntity="Subject", inversedBy="teachers")
      */
     private $subjects;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Classroom", inversedBy="teachers")
+     */
+    private $classrooms;
 
     public function __construct()
         {
             $this->subjects = new ArrayCollection();
+            $this->classrooms = new ArrayCollection();
         }
 
     /**
@@ -309,5 +314,39 @@ class Teacher implements UserInterface
     public function getSubjects()
     {
         return $this->subjects;
+    }
+
+    /**
+     * Add classroom
+     *
+     * @param \AppBundle\Entity\Classroom $classroom
+     *
+     * @return Teacher
+     */
+    public function addClassroom(\AppBundle\Entity\Classroom $classroom)
+    {
+        $this->classrooms[] = $classroom;
+
+        return $this;
+    }
+
+    /**
+     * Remove classroom
+     *
+     * @param \AppBundle\Entity\Classroom $classroom
+     */
+    public function removeClassroom(\AppBundle\Entity\Classroom $classroom)
+    {
+        $this->classrooms->removeElement($classroom);
+    }
+
+    /**
+     * Get classrooms
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getClassrooms()
+    {
+        return $this->classrooms;
     }
 }

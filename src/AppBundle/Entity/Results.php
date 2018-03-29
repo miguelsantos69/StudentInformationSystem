@@ -28,14 +28,23 @@ class Results
      */
     private $grade;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Student")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
+     */
+    private $students;
 
-    private $student;
-
-
-    private $teacher;
+    /**
+     * @ORM\ManyToOne(targetEntity="Teacher")
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
+     */
+    private $teachers;
     
-
-    private $subject;
+    /**
+     * @ORM\ManyToOne(targetEntity="Subject")
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
+     */
+    private $subjects;
 
     /**
      * @var \DateTime
@@ -180,5 +189,77 @@ class Results
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set students
+     *
+     * @param \AppBundle\Entity\Student $students
+     *
+     * @return Results
+     */
+    public function setStudents(\AppBundle\Entity\Student $students = null)
+    {
+        $this->students = $students;
+
+        return $this;
+    }
+
+    /**
+     * Get students
+     *
+     * @return \AppBundle\Entity\Student
+     */
+    public function getStudents()
+    {
+        return $this->students;
+    }
+
+    /**
+     * Set teachers
+     *
+     * @param \AppBundle\Entity\Teacher $teachers
+     *
+     * @return Results
+     */
+    public function setTeachers(\AppBundle\Entity\Teacher $teachers = null)
+    {
+        $this->teachers = $teachers;
+
+        return $this;
+    }
+
+    /**
+     * Get teachers
+     *
+     * @return \AppBundle\Entity\Teacher
+     */
+    public function getTeachers()
+    {
+        return $this->teachers;
+    }
+
+    /**
+     * Set subjects
+     *
+     * @param \AppBundle\Entity\Subject $subjects
+     *
+     * @return Results
+     */
+    public function setSubjects(\AppBundle\Entity\Subject $subjects = null)
+    {
+        $this->subjects = $subjects;
+
+        return $this;
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \AppBundle\Entity\Subject
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Classroom
@@ -49,7 +50,25 @@ class Classroom
      */
     private $schoolYearEnd;
 
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Teacher", mappedBy="classrooms")
+     */
+    private $teachers;
 
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Subject", inversedBy="classrooms")
+     */
+    private $subjects;
+    
+    public function __construct() {
+        
+        $this->teachers = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
+    }
+
+    
     /**
      * Get id
      *
@@ -154,5 +173,73 @@ class Classroom
     public function getSchoolYearEnd()
     {
         return $this->schoolYearEnd;
+    }
+
+    /**
+     * Add teacher
+     *
+     * @param \AppBundle\Entity\Teacher $teacher
+     *
+     * @return Classroom
+     */
+    public function addTeacher(\AppBundle\Entity\Teacher $teacher)
+    {
+        $this->teachers[] = $teacher;
+
+        return $this;
+    }
+
+    /**
+     * Remove teacher
+     *
+     * @param \AppBundle\Entity\Teacher $teacher
+     */
+    public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
+    {
+        $this->teachers->removeElement($teacher);
+    }
+
+    /**
+     * Get teachers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeachers()
+    {
+        return $this->teachers;
+    }
+
+    /**
+     * Add subject
+     *
+     * @param \AppBundle\Entity\Subject $subject
+     *
+     * @return Classroom
+     */
+    public function addSubject(\AppBundle\Entity\Subject $subject)
+    {
+        $this->subjects[] = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Remove subject
+     *
+     * @param \AppBundle\Entity\Subject $subject
+     */
+    public function removeSubject(\AppBundle\Entity\Subject $subject)
+    {
+        $this->subjects->removeElement($subject);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 }

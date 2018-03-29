@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}   {% endblock %}
+
+
+{% block body %}
+
+
+    <table>
+        <tr>
+            <td>Imię</td>
+            <td>Nazwisko</td>
+            <td>Pesel</td>
+            <td>Email</td>
+            <td>Adres</td>
+            <td>Telefon</td>
+            <td>Prowadzone przedmioty</td>
+        </tr>
+        {% for teacher in teachers %} 
+            <tr>
+                <td>{{teacher.name}}</td>
+                <td>{{teacher.surname}}</td>
+                <td>{{teacher.pesel}}</td>
+                <td>{{teacher.email}}</td>
+                <td>{{teacher.address}}</td>
+                <td>{{teacher.phone}}</td>
+                {% for subject in teacher.subjects %}
+                    <td>{{subject.title}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}        
+    </table>
+
+
+{% endblock %}
+
+

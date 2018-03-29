@@ -35,10 +35,19 @@ class Subject
      */
     private $teachers;
 
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Classroom", mappedBy="subjects")
+     */
+    private $classrooms;
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         
         $this->teachers = new ArrayCollection();
+        $this->classrooms = new ArrayCollection();
     }
 
     /**
@@ -109,5 +118,39 @@ class Subject
     public function getTeachers()
     {
         return $this->teachers;
+    }
+
+    /**
+     * Add classroom
+     *
+     * @param \AppBundle\Entity\Classroom $classroom
+     *
+     * @return Subject
+     */
+    public function addClassroom(\AppBundle\Entity\Classroom $classroom)
+    {
+        $this->classrooms[] = $classroom;
+
+        return $this;
+    }
+
+    /**
+     * Remove classroom
+     *
+     * @param \AppBundle\Entity\Classroom $classroom
+     */
+    public function removeClassroom(\AppBundle\Entity\Classroom $classroom)
+    {
+        $this->classrooms->removeElement($classroom);
+    }
+
+    /**
+     * Get classrooms
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getClassrooms()
+    {
+        return $this->classrooms;
     }
 }
