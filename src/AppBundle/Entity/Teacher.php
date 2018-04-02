@@ -72,20 +72,20 @@ class Teacher implements UserInterface
     private $phone;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Subject", inversedBy="teachers")
+     * @ORM\ManyToMany(targetEntity="Subject", inversedBy="teacher")
      */
-    private $subjects;
+    private $subject;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Classroom", inversedBy="teachers")
+     * @ORM\ManyToMany(targetEntity="Classroom", inversedBy="teacher", cascade={"persist"})
      */
-    private $classrooms;
+    private $classroom;
 
-    public function __construct()
-        {
-            $this->subjects = new ArrayCollection();
-            $this->classrooms = new ArrayCollection();
-        }
+    public function __construct() {
+        
+        $this->subject = new ArrayCollection();
+        $this->classroom = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -291,7 +291,7 @@ class Teacher implements UserInterface
      */
     public function addSubject(\AppBundle\Entity\Subject $subject)
     {
-        $this->subjects[] = $subject;
+        $this->subject[] = $subject;
 
         return $this;
     }
@@ -303,18 +303,27 @@ class Teacher implements UserInterface
      */
     public function removeSubject(\AppBundle\Entity\Subject $subject)
     {
-        $this->subjects->removeElement($subject);
+        $this->subject->removeElement($subject);
     }
 
     /**
-     * Get subjects
+     * Get subject
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSubjects()
+    public function getSubject()
     {
-        return $this->subjects;
+        return $this->subject;
     }
+    
+    function setSubject($subject) 
+    {
+        $this->subject = $subject;
+        
+        return $this->subject;
+    }
+
+    
 
     /**
      * Add classroom
@@ -325,7 +334,7 @@ class Teacher implements UserInterface
      */
     public function addClassroom(\AppBundle\Entity\Classroom $classroom)
     {
-        $this->classrooms[] = $classroom;
+        $this->classroom[] = $classroom;
 
         return $this;
     }
@@ -337,16 +346,32 @@ class Teacher implements UserInterface
      */
     public function removeClassroom(\AppBundle\Entity\Classroom $classroom)
     {
-        $this->classrooms->removeElement($classroom);
+        $this->classroom->removeElement($classroom);
     }
 
     /**
-     * Get classrooms
+     * Get classroom
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getClassrooms()
+    public function getClassroom()
     {
-        return $this->classrooms;
+        return $this->classroom;
     }
+    
+    
+    /**
+     * Set classroom
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $classroom
+     * @return Classroom
+     */
+    public function setClassroom($classroom) {
+
+        $this->classroom = $classroom;
+        
+        return $this;
+    }
+
+
 }

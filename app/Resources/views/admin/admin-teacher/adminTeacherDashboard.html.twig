@@ -7,13 +7,14 @@
 
     <table>
         <tr>
-            <td>Imię</td>
-            <td>Nazwisko</td>
-            <td>Pesel</td>
-            <td>Email</td>
-            <td>Adres</td>
-            <td>Telefon</td>
-            <td>Prowadzone przedmioty</td>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Pesel</th>
+            <th>Email</th>
+            <th>Adres</th>
+            <th>Telefon</th>
+            <th>Prowadzone przedmioty</th>
+            <th>Klasy</th>
         </tr>
         {% for teacher in teachers %} 
             <tr>
@@ -23,8 +24,11 @@
                 <td>{{teacher.email}}</td>
                 <td>{{teacher.address}}</td>
                 <td>{{teacher.phone}}</td>
-                {% for subject in teacher.subjects %}
-                    <td>{{subject.title}}</td>
+                {% for subject in teacher.subject %}
+                <td>{{subject.title}} </td>
+                {% endfor %}
+                {% for classroom in teacher.classroom %}
+                <td>{{classroom.description}}</td>
                 {% endfor %}
             </tr>
         {% endfor %}        

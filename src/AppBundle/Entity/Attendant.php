@@ -65,14 +65,14 @@ class Attendant
     private $phone;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Student", mappedBy="attendants")
+     * @ORM\ManyToMany(targetEntity="Student", mappedBy="attendant")
      * 
      */
-    private $students;
+    private $student;
 
     public function __construct() {
         
-        $this->students = new ArrayCollection;
+        $this->student = new ArrayCollection;
     }
 
     /**
@@ -229,6 +229,7 @@ class Attendant
         return $this->phone;
     }
 
+
     /**
      * Add student
      *
@@ -238,7 +239,7 @@ class Attendant
      */
     public function addStudent(\AppBundle\Entity\Student $student)
     {
-        $this->students[] = $student;
+        $this->student[] = $student;
 
         return $this;
     }
@@ -250,16 +251,16 @@ class Attendant
      */
     public function removeStudent(\AppBundle\Entity\Student $student)
     {
-        $this->students->removeElement($student);
+        $this->student->removeElement($student);
     }
 
     /**
-     * Get students
+     * Get student
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getStudents()
+    public function getStudent()
     {
-        return $this->students;
+        return $this->student;
     }
 }

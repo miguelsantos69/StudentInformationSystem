@@ -39,13 +39,12 @@ class Attendance
      * @ORM\ManyToOne(targetEntity="Student")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
      */
-    private $students;
-    
+    private $student;
     /**
      * @ORM\ManyToOne(targetEntity="Subject")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id") 
      */
-    private $subjects;
+    private $subject;
 
     /**
      * Get id
@@ -152,53 +151,5 @@ class Attendance
     public function getSubject()
     {
         return $this->subject;
-    }
-
-    /**
-     * Set students
-     *
-     * @param \AppBundle\Entity\Student $students
-     *
-     * @return Attendance
-     */
-    public function setStudents(\AppBundle\Entity\Student $students = null)
-    {
-        $this->students = $students;
-
-        return $this;
-    }
-
-    /**
-     * Get students
-     *
-     * @return \AppBundle\Entity\Student
-     */
-    public function getStudents()
-    {
-        return $this->students;
-    }
-
-    /**
-     * Set subjects
-     *
-     * @param \AppBundle\Entity\Subject $subjects
-     *
-     * @return Attendance
-     */
-    public function setSubjects(\AppBundle\Entity\Subject $subjects = null)
-    {
-        $this->subjects = $subjects;
-
-        return $this;
-    }
-
-    /**
-     * Get subjects
-     *
-     * @return \AppBundle\Entity\Subject
-     */
-    public function getSubjects()
-    {
-        return $this->subjects;
     }
 }

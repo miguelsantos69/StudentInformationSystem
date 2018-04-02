@@ -32,19 +32,19 @@ class Results
      * @ORM\ManyToOne(targetEntity="Student")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
      */
-    private $students;
+    private $student;
 
     /**
      * @ORM\ManyToOne(targetEntity="Teacher")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
      */
-    private $teachers;
+    private $teacher;
     
     /**
      * @ORM\ManyToOne(targetEntity="Subject")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
      */
-    private $subjects;
+    private $subject;
 
     /**
      * @var \DateTime
@@ -96,54 +96,6 @@ class Results
     }
 
     /**
-     * Set student
-     *
-     * @param string $student
-     *
-     * @return Results
-     */
-    public function setStudent($student)
-    {
-        $this->student = $student;
-
-        return $this;
-    }
-
-    /**
-     * Get student
-     *
-     * @return string
-     */
-    public function getStudent()
-    {
-        return $this->student;
-    }
-
-    /**
-     * Set teacher
-     *
-     * @param string $teacher
-     *
-     * @return Results
-     */
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-
-        return $this;
-    }
-
-    /**
-     * Get teacher
-     *
-     * @return string
-     */
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
-
-    /**
      * Set date
      *
      * @param \DateTime $date
@@ -191,75 +143,76 @@ class Results
         return $this->note;
     }
 
+
     /**
-     * Set students
+     * Set student
      *
-     * @param \AppBundle\Entity\Student $students
+     * @param \AppBundle\Entity\Student $student
      *
      * @return Results
      */
-    public function setStudents(\AppBundle\Entity\Student $students = null)
+    public function setStudent(\AppBundle\Entity\Student $student = null)
     {
-        $this->students = $students;
+        $this->student = $student;
 
         return $this;
     }
 
     /**
-     * Get students
+     * Get student
      *
      * @return \AppBundle\Entity\Student
      */
-    public function getStudents()
+    public function getStudent()
     {
-        return $this->students;
+        return $this->student;
     }
 
     /**
-     * Set teachers
+     * Set teacher
      *
-     * @param \AppBundle\Entity\Teacher $teachers
+     * @param \AppBundle\Entity\Teacher $teacher
      *
      * @return Results
      */
-    public function setTeachers(\AppBundle\Entity\Teacher $teachers = null)
+    public function setTeacher(\AppBundle\Entity\Teacher $teacher = null)
     {
-        $this->teachers = $teachers;
+        $this->teacher = $teacher;
 
         return $this;
     }
 
     /**
-     * Get teachers
+     * Get teacher
      *
      * @return \AppBundle\Entity\Teacher
      */
-    public function getTeachers()
+    public function getTeacher()
     {
-        return $this->teachers;
+        return $this->teacher;
     }
 
     /**
-     * Set subjects
+     * Set subject
      *
-     * @param \AppBundle\Entity\Subject $subjects
+     * @param \AppBundle\Entity\Subject $subject
      *
      * @return Results
      */
-    public function setSubjects(\AppBundle\Entity\Subject $subjects = null)
+    public function setSubject(\AppBundle\Entity\Subject $subject = null)
     {
-        $this->subjects = $subjects;
+        $this->subject = $subject;
 
         return $this;
     }
 
     /**
-     * Get subjects
+     * Get subject
      *
      * @return \AppBundle\Entity\Subject
      */
-    public function getSubjects()
+    public function getSubject()
     {
-        return $this->subjects;
+        return $this->subject;
     }
 }

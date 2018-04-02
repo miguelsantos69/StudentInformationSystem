@@ -84,17 +84,17 @@ class Student implements UserInterface
      * @ORM\ManyToOne(targetEntity="Classroom")
      * @ORM\JoinColumn(name="classroom_id", referencedColumnName="id")
      */
-    private $classrooms;
+    private $classroom;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Attendant", inversedBy="students")
+     * @ORM\ManyToMany(targetEntity="Attendant", inversedBy="student")
      * @ORM\JoinColumn(name="attendant_id", referencedColumnName="id")
      */
-    private $attendants;
+    private $attendant;
         
     public function __construct() {
         
-        $this->attendants = new ArrayCollection;
+        $this->attendant = new ArrayCollection;
     }
     
     /**
@@ -315,9 +315,9 @@ class Student implements UserInterface
     {
         return $this->gender;
     }
-    
+   
 
-        /**
+    /**
      * Set classroom
      *
      * @param \AppBundle\Entity\Classroom $classroom
@@ -350,7 +350,7 @@ class Student implements UserInterface
      */
     public function addAttendant(\AppBundle\Entity\Attendant $attendant)
     {
-        $this->attendants[] = $attendant;
+        $this->attendant[] = $attendant;
 
         return $this;
     }
@@ -362,40 +362,16 @@ class Student implements UserInterface
      */
     public function removeAttendant(\AppBundle\Entity\Attendant $attendant)
     {
-        $this->attendants->removeElement($attendant);
+        $this->attendant->removeElement($attendant);
     }
 
     /**
-     * Get attendants
+     * Get attendant
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAttendants()
+    public function getAttendant()
     {
-        return $this->attendants;
-    }
-
-    /**
-     * Set classrooms
-     *
-     * @param \AppBundle\Entity\Classroom $classrooms
-     *
-     * @return Student
-     */
-    public function setClassrooms(\AppBundle\Entity\Classroom $classrooms = null)
-    {
-        $this->classrooms = $classrooms;
-
-        return $this;
-    }
-
-    /**
-     * Get classrooms
-     *
-     * @return \AppBundle\Entity\Classroom
-     */
-    public function getClassrooms()
-    {
-        return $this->classrooms;
+        return $this->attendant;
     }
 }

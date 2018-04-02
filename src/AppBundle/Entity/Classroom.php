@@ -52,22 +52,26 @@ class Classroom
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Teacher", mappedBy="classrooms")
+     * @ORM\ManyToMany(targetEntity="Teacher", mappedBy="classroom", cascade={"persist"})
      */
-    private $teachers;
+    private $teacher;
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Subject", inversedBy="classrooms")
+     * @ORM\ManyToMany(targetEntity="Subject", inversedBy="classroom")
      */
-    private $subjects;
+    private $subject;
     
     public function __construct() {
         
-        $this->teachers = new ArrayCollection();
-        $this->subjects = new ArrayCollection();
+        $this->teacher = new ArrayCollection();
+        $this->subject = new ArrayCollection();
     }
 
+    public function __toString() {
+        
+        return $this->mark . ' (' . $this->description . ')';
+    }
     
     /**
      * Get id
@@ -175,40 +179,7 @@ class Classroom
         return $this->schoolYearEnd;
     }
 
-    /**
-     * Add teacher
-     *
-     * @param \AppBundle\Entity\Teacher $teacher
-     *
-     * @return Classroom
-     */
-    public function addTeacher(\AppBundle\Entity\Teacher $teacher)
-    {
-        $this->teachers[] = $teacher;
-
-        return $this;
-    }
-
-    /**
-     * Remove teacher
-     *
-     * @param \AppBundle\Entity\Teacher $teacher
-     */
-    public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
-    {
-        $this->teachers->removeElement($teacher);
-    }
-
-    /**
-     * Get teachers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTeachers()
-    {
-        return $this->teachers;
-    }
-
+    
     /**
      * Add subject
      *
@@ -218,7 +189,7 @@ class Classroom
      */
     public function addSubject(\AppBundle\Entity\Subject $subject)
     {
-        $this->subjects[] = $subject;
+        $this->subject[] = $subject;
 
         return $this;
     }
@@ -230,16 +201,60 @@ class Classroom
      */
     public function removeSubject(\AppBundle\Entity\Subject $subject)
     {
-        $this->subjects->removeElement($subject);
+        $this->subject->removeElement($subject);
     }
 
     /**
-     * Get subjects
+     * Get subject
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSubjects()
+    public function getSubject()
     {
-        return $this->subjects;
+        return $this->subject;
     }
+
+
+    /**
+     * Add teacher
+     *
+     * @param \AppBundle\Entity\Teacher $teacher
+     *
+     * @return Classroom
+     */
+    public function addTeacher(\AppBundle\Entity\Teacher $teacher)
+    {
+        $this->teacher[] = $teacher;
+
+        return $this;
+    }
+
+    /**
+     * Remove teacher
+     *
+     * @param \AppBundle\Entity\Teacher $teacher
+     */
+    public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
+    {
+        $this->teacher->removeElement($teacher);
+    }
+
+    /**
+     * Get teacher
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeacher()
+    {
+        return $this->teacher;
+    }
+    
+    function setTeacher($teacher) {
+        
+        $this->teacher = $teacher;
+        
+        return $this;
+    }
+
+
 }

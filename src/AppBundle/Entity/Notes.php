@@ -39,13 +39,13 @@ class Notes
      * @ORM\ManyToOne(targetEntity="Student")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
      */
-    private $students;
+    private $student;
 
     /**
      * @ORM\ManyToOne(targetEntity="Teacher")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
      */
-    private $teachers;
+    private $teacher;
 
 
     /**
@@ -106,14 +106,15 @@ class Notes
         return $this->date;
     }
 
+
     /**
      * Set student
      *
-     * @param string $student
+     * @param \AppBundle\Entity\Student $student
      *
      * @return Notes
      */
-    public function setStudent($student)
+    public function setStudent(\AppBundle\Entity\Student $student = null)
     {
         $this->student = $student;
 
@@ -123,7 +124,7 @@ class Notes
     /**
      * Get student
      *
-     * @return string
+     * @return \AppBundle\Entity\Student
      */
     public function getStudent()
     {
@@ -133,11 +134,11 @@ class Notes
     /**
      * Set teacher
      *
-     * @param string $teacher
+     * @param \AppBundle\Entity\Teacher $teacher
      *
      * @return Notes
      */
-    public function setTeacher($teacher)
+    public function setTeacher(\AppBundle\Entity\Teacher $teacher = null)
     {
         $this->teacher = $teacher;
 
@@ -147,58 +148,10 @@ class Notes
     /**
      * Get teacher
      *
-     * @return string
+     * @return \AppBundle\Entity\Teacher
      */
     public function getTeacher()
     {
         return $this->teacher;
-    }
-
-    /**
-     * Set students
-     *
-     * @param \AppBundle\Entity\Student $students
-     *
-     * @return Notes
-     */
-    public function setStudents(\AppBundle\Entity\Student $students = null)
-    {
-        $this->students = $students;
-
-        return $this;
-    }
-
-    /**
-     * Get students
-     *
-     * @return \AppBundle\Entity\Student
-     */
-    public function getStudents()
-    {
-        return $this->students;
-    }
-
-    /**
-     * Set teachers
-     *
-     * @param \AppBundle\Entity\Teacher $teachers
-     *
-     * @return Notes
-     */
-    public function setTeachers(\AppBundle\Entity\Teacher $teachers = null)
-    {
-        $this->teachers = $teachers;
-
-        return $this;
-    }
-
-    /**
-     * Get teachers
-     *
-     * @return \AppBundle\Entity\Teacher
-     */
-    public function getTeachers()
-    {
-        return $this->teachers;
     }
 }
