@@ -4,8 +4,12 @@
 
 {% block body %}
 
-    <h1>Panel Admina</h1>
-    
+    <h1>Admin page</h1>
+    <ul>
+        <li><a href="{{path('admin_teacher_dashboard')}}"> Teachers </a></li>
+        <li><a href="{{path('admin_student_dashboard')}}"> Students </a></li>
+        <li><a href="{{path('admin_subject_dashboard')}}"> Subjects </a></li>
+    </ul>
 {% endblock %}
 
 

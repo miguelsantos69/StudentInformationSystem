@@ -1,40 +1,56 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}   {% endblock %}
+{% block stylesheets %}   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  {% endblock %}
 
 
-{% block body %}
+    {% block body %}
 
+        <div class="container">
+            {% for message in app.flashes('notice') %}
+                <div>
+                    {{ message }}
+                </div>
+            {% endfor %}
 
-    <table>
-        <tr>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Pesel</th>
-            <th>Email</th>
-            <th>Adres</th>
-            <th>Telefon</th>
-            <th>Prowadzone przedmioty</th>
-            <th>Klasy</th>
-        </tr>
-        {% for teacher in teachers %} 
-            <tr>
-                <td>{{teacher.name}}</td>
-                <td>{{teacher.surname}}</td>
-                <td>{{teacher.pesel}}</td>
-                <td>{{teacher.email}}</td>
-                <td>{{teacher.address}}</td>
-                <td>{{teacher.phone}}</td>
-                {% for subject in teacher.subject %}
-                <td>{{subject.title}} </td>
-                {% endfor %}
-                {% for classroom in teacher.classroom %}
-                <td>{{classroom.description}}</td>
-                {% endfor %}
-            </tr>
-        {% endfor %}        
-    </table>
-
-
-{% endblock %}
+            <h2>Teachers</h2>      
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>First Name</th>
+                        <th>Surname</th>
+                        <th>Social Security Number</th>
+                        <th>Email</th>
+                        <th>Adsress</th>
+                        <th>Phone number</th>
+                        <th>Subjects</th>
+                        <th>Classes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for teacher in teachers %}
+                            <td><a href="{{ path('admin_editteacher', { 'id': teacher.id }) }} "type="button" class="btn btn-info">Edit</a></td>
+                            <td>{{teacher.name}}</td>
+                            <td>{{teacher.surname}}</td>
+                            <td>{{teacher.pesel}}</td>
+                            <td>{{teacher.email}}</td>
+                            <td>{{teacher.address}}</td>
+                            <td>{{teacher.phone}}</td>
+                            <td>{% for subject in teacher.subject %}
+                                {{subject.title}}
+                                {% endfor %}</td>
+                            <td>{% for classroom in teacher.classroom %}
+                                {{classroom.description}}
+                                {% endfor %}</td>
+                            <td><a href="{{ path('admin_deleteteacher', { 'id': teacher.id }) }}" type="button" class="btn btn-danger">Delete</a></td>
+                        </tr>
+                        {% endfor %} 
+                        </tbody>
+                    </table>
+                    <a href="{{ path('admin_createteacher') }}" type="button" class="btn btn-default">Add new teacher</a>
+                </div>
+                {% endblock %}
 
 

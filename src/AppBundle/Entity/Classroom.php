@@ -58,19 +58,26 @@ class Classroom
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Subject", inversedBy="classroom")
+     * @ORM\ManyToMany(targetEntity="Subject")
      */
     private $subject;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="classroom")
+     */
+    private $student;
+
+
     public function __construct() {
         
         $this->teacher = new ArrayCollection();
         $this->subject = new ArrayCollection();
+        $this->student = new ArrayCollection();
     }
 
     public function __toString() {
         
-        return $this->mark . ' (' . $this->description . ')';
+        return $this->mark . ' (' . $this->level . ')' . ' (' . $this->description . ')' . ' (' . $this->schoolYearEnd . ')';
     }
     
     /**
@@ -256,5 +263,45 @@ class Classroom
         return $this;
     }
 
+
+
+    /**
+     * Add student
+     *
+     * @param \AppBundle\Entity\Student $student
+     *
+     * @return Classroom
+     */
+    public function addStudent(\AppBundle\Entity\Student $student)
+    {
+        $this->student[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \AppBundle\Entity\Student $student
+     */
+    public function removeStudent(\AppBundle\Entity\Student $student)
+    {
+        $this->student->removeElement($student);
+    }
+
+    /**
+     * Get student
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+    
+    function setStudent($student) 
+    {
+        $this->student = $student;
+    }
 
 }

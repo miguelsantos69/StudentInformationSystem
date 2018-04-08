@@ -81,7 +81,7 @@ class Student implements UserInterface
     private $gender;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Classroom")
+     * @ORM\ManyToOne(targetEntity="Classroom", inversedBy="student")
      * @ORM\JoinColumn(name="classroom_id", referencedColumnName="id")
      */
     private $classroom;
@@ -92,11 +92,12 @@ class Student implements UserInterface
      */
     private $attendant;
         
-    public function __construct() {
-        
+    public function __construct() 
+    {    
         $this->attendant = new ArrayCollection;
     }
-    
+
+
     /**
      * Get id
      *

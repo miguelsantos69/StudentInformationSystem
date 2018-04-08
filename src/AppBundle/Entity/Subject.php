@@ -31,13 +31,13 @@ class Subject
     
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Teacher", mappedBy="subject")
+     * @ORM\ManyToMany(targetEntity="Teacher")
      */
     private $teacher;
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Classroom", mappedBy="subject")
+     * @ORM\ManyToMany(targetEntity="Classroom")
      */
     private $classroom;
 
@@ -162,4 +162,14 @@ class Subject
     {
         return $this->classroom;
     }
+    
+    function setClassroom($classroom) {
+        
+        $this->classroom = $classroom;
+        
+        return $this;
+    }
+
+    
+
 }

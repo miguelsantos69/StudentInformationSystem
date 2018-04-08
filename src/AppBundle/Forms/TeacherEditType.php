@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class TeacherType extends AbstractType {
+class TeacherEditType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
@@ -22,8 +22,16 @@ class TeacherType extends AbstractType {
                 ->add('address', TextType::class)
                 ->add('email', EmailType::class)
                 ->add('password', TextType::class)
+                ->add('classroom', EntityType::class, [
+                    'class' => 'AppBundle:Classroom',
+                    'multiple' => true
+                ])
                 ->add('phone', TextType::class)
-                ->add('add', SubmitType::class);
+                ->add('subject', EntityType::class, [
+                    'class' => 'AppBundle:Subject',
+                    'multiple' => true
+                ])
+                ->add('edit', SubmitType::class);
     }
 
 }

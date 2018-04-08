@@ -37,9 +37,9 @@ class Teacher implements UserInterface
     private $surname;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="pesel", type="bigint", unique=true)
+     * @ORM\Column(name="pesel", type="string", length=255, unique=true)
      */
     private $pesel;
 
@@ -65,14 +65,14 @@ class Teacher implements UserInterface
     private $address;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="phone", type="bigint", unique=true)
+     * @ORM\Column(name="phone", type="string", length=255, unique=true)
      */
     private $phone;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Subject", inversedBy="teacher")
+     * @ORM\ManyToMany(targetEntity="Subject")
      */
     private $subject;
     
@@ -87,6 +87,11 @@ class Teacher implements UserInterface
         $this->classroom = new ArrayCollection();
     }
 
+    public function __toString() {
+        
+        return $this->name . ' (' . $this->surname . ')';
+    }
+    
     /**
      * Get id
      *
@@ -148,7 +153,7 @@ class Teacher implements UserInterface
     /**
      * Set pesel
      *
-     * @param integer $pesel
+     * @param string $pesel
      *
      * @return Teacher
      */
@@ -162,7 +167,7 @@ class Teacher implements UserInterface
     /**
      * Get pesel
      *
-     * @return int
+     * @return string
      */
     public function getPesel()
     {
@@ -244,7 +249,7 @@ class Teacher implements UserInterface
     /**
      * Set phone
      *
-     * @param integer $phone
+     * @param string $phone
      *
      * @return Teacher
      */
@@ -258,7 +263,7 @@ class Teacher implements UserInterface
     /**
      * Get phone
      *
-     * @return int
+     * @return string
      */
     public function getPhone()
     {
