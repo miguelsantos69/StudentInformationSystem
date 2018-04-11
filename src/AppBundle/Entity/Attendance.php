@@ -37,12 +37,12 @@ class Attendance
     
     /**
      * @ORM\ManyToOne(targetEntity="Student")
-     * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $student;
     /**
      * @ORM\ManyToOne(targetEntity="Subject")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id") 
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", onDelete="CASCADE") 
      */
     private $subject;
 

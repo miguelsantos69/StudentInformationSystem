@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\Student;
 use AppBundle\Entity\Subject;
+use AppBundle\Entity\Classroom;
 use AppBundle\Forms\TeacherType;
 use AppBundle\Forms\TeacherEditType;
 use AppBundle\Forms\StudentEditType;
@@ -258,7 +259,7 @@ class AdminController extends Controller {
             $em->persist($subject);
             $em->flush();
 
-            $this->addFlash('notice', 'Edytowano subject');
+            $this->addFlash('notice', 'Subject profile has been edited correctly');
 
             return $this->redirectToRoute('admin_subject_dashboard');
         }
@@ -312,5 +313,24 @@ class AdminController extends Controller {
         $this->addFlash('notice', 'Subject has been successfully deleted ');
 
         return $this->redirectToRoute('admin_subject_dashboard');
+    }
+    
+    /**
+     * @Route("/admin/classroom", name="admin_classroom_dashboard")
+     */
+    public function showclassroomAction() {                                      //List of all classrooms
+        
+        $classrooms = $this->getDoctrine()
+                ->getRepository(Classroom::class)
+                ->findAll();
+
+        foreach ($classrooms as $classroom) {
+            $classroom->getClassroom();
+            $classroom->getTeacher();
+        }
+
+        return $this->render('admin/admin-subject/adminClassroomDashboard.html.twig', [
+                    'classroom' => $classrooms,
+        ]);
     }
 }

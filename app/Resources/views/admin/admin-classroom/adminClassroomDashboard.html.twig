@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  {% endblock %}
+
+
+    {% block body %}
+
+        <div class="container">
+            {% for message in app.flashes('notice') %}
+                <div>
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <h2>Students</h2>      
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>First name</th>
+                        <th>Surname</th>
+                        <th>Social Security Number</th>
+                        <th>Email</th>
+                        <th>Adsress</th>
+                        <th>Birthday</th>
+                        <th>Gender</th>
+                        <th>Class</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>    
+                    {% for student in students %}
+                        <td><a href="{{ path('admin_editstudent', { 'id': student.id }) }} "type="button" class="btn btn-info">Edit</a></td>
+                        <td>{{student.name}}</td>
+                        <td>{{student.surname}}</td>
+                        <td>{{student.pesel}}</td>
+                        <td>{{student.email}}</td>
+                        <td>{{student.address}}</td>
+                        <td>{{student.birthday|date('j-n-Y')}}</td>
+                        <td>{{student.gender}}</td>
+                        <td>{{student.classroom}}</td>
+                        <td><a href="{{ path('admin_deletestudent', { 'id': student.id }) }}" type="button" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                    {% endfor %} 
+                    </tbody>
+                </table>
+              <a href="{{ path('admin_createstudent') }}" type="button" class="btn btn-default">Add new student</a>
+            </div>
+            {% endblock %}
+
+

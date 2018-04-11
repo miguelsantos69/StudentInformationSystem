@@ -39,7 +39,13 @@ class Subject
      *
      * @ORM\ManyToMany(targetEntity="Classroom")
      */
-    private $classroom;
+    private $classroom; 
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Attendance", mappedBy="subject")
+     */
+    private $attendance;
 
     /**
      * Constructor
@@ -48,6 +54,7 @@ class Subject
         
         $this->teacher = new ArrayCollection();
         $this->classroom = new ArrayCollection();
+        $this->attendance = new ArrayCollection();
     }
             
     public function __toString() {
@@ -172,4 +179,38 @@ class Subject
 
     
 
+
+    /**
+     * Add attendance
+     *
+     * @param \AppBundle\Entity\Attendance $attendance
+     *
+     * @return Subject
+     */
+    public function addAttendance(\AppBundle\Entity\Attendance $attendance)
+    {
+        $this->attendance[] = $attendance;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendance
+     *
+     * @param \AppBundle\Entity\Attendance $attendance
+     */
+    public function removeAttendance(\AppBundle\Entity\Attendance $attendance)
+    {
+        $this->attendance->removeElement($attendance);
+    }
+
+    /**
+     * Get attendance
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendance()
+    {
+        return $this->attendance;
+    }
 }
