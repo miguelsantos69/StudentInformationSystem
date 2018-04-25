@@ -1,8 +1,4 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  {% endblock %}
-
 
     {% block body %}
 
@@ -13,39 +9,42 @@
                 </div>
             {% endfor %}
 
-            <h2>Students</h2>      
+            <h2>Classrooms</h2>      
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>First name</th>
-                        <th>Surname</th>
-                        <th>Social Security Number</th>
-                        <th>Email</th>
-                        <th>Adsress</th>
-                        <th>Birthday</th>
-                        <th>Gender</th>
-                        <th>Class</th>
+                        <th>Mark</th>
+                        <th>Description</th>
+                        <th>Level</th>
+                        <th>School year end</th>
+                        <th>Teachers</th>
+                        <th>Subjects</th>
+                        <th>Students</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>    
-                    {% for student in students %}
-                        <td><a href="{{ path('admin_editstudent', { 'id': student.id }) }} "type="button" class="btn btn-info">Edit</a></td>
+                    {% for classroom in classrooms %}
+                        <td><a href="{{ path('admin_editclassroom', { 'id': classroom.id }) }} "type="button" class="btn btn-info">Edit</a></td>
+                        <td>{{classroom.mark}}</td>
+                        <td>{{classroom.description}}</td>
+                        <td>{{classroom.level}}</td>
+                        <td>{{classroom.schoolyearend}}</td>
+                        {% for teacher in classroom.teacher %}
+                        <td>{{teacher.name}}</td>
+                        <td>{{teacher.surname}}</td>
+                        {% endfor %}
+                        {% for student in classroom.student %}
                         <td>{{student.name}}</td>
                         <td>{{student.surname}}</td>
-                        <td>{{student.pesel}}</td>
-                        <td>{{student.email}}</td>
-                        <td>{{student.address}}</td>
-                        <td>{{student.birthday|date('j-n-Y')}}</td>
-                        <td>{{student.gender}}</td>
-                        <td>{{student.classroom}}</td>
-                        <td><a href="{{ path('admin_deletestudent', { 'id': student.id }) }}" type="button" class="btn btn-danger">Delete</a></td>
+                        {% endfor %}
+                        <td><a href="{{ path('admin_deleteclassroom', { 'id': classroom.id }) }}" type="button" class="btn btn-danger">Delete</a></td>
                     </tr>
                     {% endfor %} 
                     </tbody>
                 </table>
-              <a href="{{ path('admin_createstudent') }}" type="button" class="btn btn-default">Add new student</a>
+              <a href="{{ path('admin_createclassroom') }}" type="button" class="btn btn-default">Add new classroom</a>
             </div>
             {% endblock %}
 

@@ -97,6 +97,10 @@ class Student implements UserInterface
         $this->attendant = new ArrayCollection;
     }
 
+    public function __toString() {
+        
+        return $this->name. ' (' . $this->surname . ')';
+    }
 
     /**
      * Get id

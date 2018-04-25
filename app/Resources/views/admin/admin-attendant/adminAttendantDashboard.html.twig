@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+
+        <div class="container">
+            {% for message in app.flashes('notice') %}
+                <div>
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <h2>Attendants</h2>      
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>First name</th>
+                        <th>Surname</th>
+                        <th>Social Security Number</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Student name</th>
+                        <th>Student surname</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>    
+                    {% for attendant in attendants %}
+                        <td><a href="{{ path('admin_editattendant', { 'id': attendant.id }) }} "type="button" class="btn btn-info">Edit</a></td>
+                        <td>{{attendant.name}}</td>
+                        <td>{{attendant.surname}}</td>
+                        <td>{{attendant.pesel}}</td>
+                        <td>{{attendant.email}}</td>
+                        <td>{{attendant.phone}}</td>
+                    {% for student in attendant.student%}
+                        <td>{{student.name}}</td>
+                        <td>{{student.surname}}</td>
+                        {% endfor %}
+                        <td><a href="{{ path('admin_deleteattendant', { 'id': attendant.id }) }}" type="button" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                    {% endfor %} 
+                    </tbody>
+                </table>
+              <a href="{{ path('admin_createattendant') }}" type="button" class="btn btn-default">Add new attendant</a>
+            </div>
+            {% endblock %}
+
+

@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}   {% endblock %}
 
 
 {% block body %}
-
     <h1>Admin page</h1>
     <ul>
         <li><a href="{{path('admin_teacher_dashboard')}}"> Teachers </a></li>
         <li><a href="{{path('admin_student_dashboard')}}"> Students </a></li>
         <li><a href="{{path('admin_subject_dashboard')}}"> Subjects </a></li>
+        <li><a href="{{path('admin_classroom_dashboard')}}"> Classrooms </a></li>
+        <li><a href="{{path('admin_attendant_dashboard')}}"> Attendants </a></li>
     </ul>
 {% endblock %}
 

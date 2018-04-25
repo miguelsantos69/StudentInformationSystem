@@ -2,19 +2,22 @@
 
 namespace AppBundle\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManager;
-use AppBundle\Entity\Teacher;
+use AppBundle\Forms\AttendantType;
+use AppBundle\Entity\Attendant;
+use AppBundle\Entity\Classroom;
 use AppBundle\Entity\Student;
 use AppBundle\Entity\Subject;
-use AppBundle\Entity\Classroom;
-use AppBundle\Forms\TeacherType;
-use AppBundle\Forms\TeacherEditType;
+use AppBundle\Entity\Teacher;
+use AppBundle\Forms\ClassroomEditType;
+use AppBundle\Forms\ClassroomType;
 use AppBundle\Forms\StudentEditType;
 use AppBundle\Forms\StudentType;
 use AppBundle\Forms\SubjectType;
+use AppBundle\Forms\TeacherEditType;
+use AppBundle\Forms\TeacherType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends Controller {
 
@@ -270,7 +273,7 @@ class AdminController extends Controller {
     }
 
     /**
-     * @Route("/admin/subject/create", name="admin_createstudent")
+     * @Route("/admin/subject/create", name="admin_createsubject")
      */
     public function newsubjectAction(Request $request) {                        //Adding a new subject
         
@@ -325,12 +328,187 @@ class AdminController extends Controller {
                 ->findAll();
 
         foreach ($classrooms as $classroom) {
-            $classroom->getClassroom();
+            $classroom->getStudent();
             $classroom->getTeacher();
+            $classroom->getSubject();
         }
 
-        return $this->render('admin/admin-subject/adminClassroomDashboard.html.twig', [
-                    'classroom' => $classrooms,
+        return $this->render('admin/admin-classroom/adminClassroomDashboard.html.twig', [
+                    'classrooms' => $classrooms,
         ]);
     }
+    
+    /**
+     * @Route("/admin/classroom/edit/{id}", name="admin_editclassroom")
+     */
+    public function editclassroomAction($id, Request $request) {                  //Edit existing classroom
+       
+        $classroom = $this->getDoctrine()
+                ->getRepository('AppBundle:Classroom')
+                ->find($id);
+
+        $form = $this->createForm(ClassroomEditType::class, $classroom);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $classroom = $form->getData();
+            $em = $this->getDoctrine()
+                    ->getManager();
+
+            $em->persist($classroom);
+            $em->flush();
+
+            $this->addFlash('notice', 'Classroom has been edited correctly');
+
+            return $this->redirectToRoute('admin_classroom_dashboard');
+        }
+
+        return $this->render('admin/admin-classroom/adminClassroomEdit.html.twig', [
+                    'form' => $form->createView()
+        ]);
+    }
+    
+    /**
+     * @Route("/admin/classroom/create", name="admin_createclassroom")
+     */
+    public function newclassroomAction(Request $request) {                        //Adding a new classroom
+        
+        $subject = new Classroom;
+
+        $form = $this->createForm(ClassroomType::class, $subject);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $classroom = $form->getData();
+            $em = $this->getDoctrine()
+                    ->getManager();
+
+            $em->persist($classroom);
+            $em->flush();
+
+            $this->addFlash('notice', 'New classroom has been successfully created');
+
+            return $this->redirectToRoute('admin_classroom_dashboard');
+        }
+
+        return $this->render('admin/admin-classroom/adminClassroomCreate.html.twig', [
+                    'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/classroom/delete/{id}", name="admin_deleteclassroom")
+     */
+    public function deleteclassroomAction($id) {                                  //Delete classroom
+       
+        $em = $this->getDoctrine()->getManager();
+        $classroom = $em->getRepository('AppBundle:Classroom')->find($id);
+
+        $em->remove($classroom);
+        $em->flush();
+
+        $this->addFlash('notice', 'Classroom has been successfully deleted ');
+
+        return $this->redirectToRoute('admin_classroom_dashboard');
+    }
+    
+    /**
+     * @Route("/admin/attendant", name="admin_attendant_dashboard")
+     */
+    public function showattendantAction() {                                      //List of all attendants
+        
+        $attendants = $this->getDoctrine()
+                ->getRepository(Attendant::class)
+                ->findAll();
+
+        foreach ($attendants as $attendant) {
+            $attendant->getStudent();
+        }
+
+        return $this->render('admin/admin-attendant/adminAttendantDashboard.html.twig', [
+                    'attendants' => $attendants,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/attendant/create", name="admin_createattendant")
+     */
+    public function newattendantAction(Request $request) {                        //Adding a new attendant
+        
+        $attendant = new Attendant;
+
+        $form = $this->createForm(AttendantType::class, $attendant);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $attendant = $form->getData();
+            $em = $this->getDoctrine()
+                    ->getManager();
+
+            $em->persist($attendant);
+            $em->flush();
+
+            $this->addFlash('notice', 'New attendant has been successfully created');
+
+            return $this->redirectToRoute('admin_attendant_dashboard');
+        }
+
+        return $this->render('admin/admin-attendant/adminAttendantCreate.html.twig', [
+                    'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/attendant/edit/{id}", name="admin_editattendant")
+     */
+    public function editattendantAction($id, Request $request) {                  //Edit existing attendant
+        
+        $attendant = $this->getDoctrine()
+                ->getRepository('AppBundle:Attendant')
+                ->find($id);
+
+        $form = $this->createForm(AttendantType::class, $attendant);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $attendant = $form->getData();
+            $em = $this->getDoctrine()
+                    ->getManager();
+
+            $em->persist($attendant);
+            $em->flush();
+
+            $this->addFlash('notice', 'Attendant profile has been edited correctly');
+
+            return $this->redirectToRoute('admin_attendant_dashboard');
+        }
+
+        return $this->render('admin/admin-attendant/adminAttendantCreate.html.twig', [
+                    'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/attendant/delete/{id}", name="admin_deleteattendant")
+     */
+    public function deleteattendantAction($id) {                                  //Delete attendant
+        $em = $this->getDoctrine()->getManager();
+        $attendant = $em->getRepository('AppBundle:Attendant')->find($id);
+
+        $em->remove($attendant);
+        $em->flush();
+
+        $this->addFlash('notice', 'Attendant has been deleted from database');
+
+        return $this->redirectToRoute('admin_attendant_dashboard');
+    }
+    
 }

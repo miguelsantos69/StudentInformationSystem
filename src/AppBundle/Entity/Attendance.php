@@ -41,7 +41,7 @@ class Attendance
      */
     private $student;
     /**
-     * @ORM\ManyToOne(targetEntity="Subject")
+     * @ORM\ManyToOne(targetEntity="Subject", inversedBy="attendance")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", onDelete="CASCADE") 
      */
     private $subject;

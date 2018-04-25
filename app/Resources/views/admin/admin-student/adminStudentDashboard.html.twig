@@ -1,18 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  {% endblock %}
+{% block stylesheets %} {% endblock %}
 
 
     {% block body %}
 
         <div class="container">
-            {% for message in app.flashes('notice') %}
-                <div>
-                    {{ message }}
-                </div>
-            {% endfor %}
-
             <h2>Students</h2>      
             <table class="table table-striped">
                 <thead>
@@ -22,7 +14,7 @@
                         <th>Surname</th>
                         <th>Social Security Number</th>
                         <th>Email</th>
-                        <th>Adsress</th>
+                        <th>Adress</th>
                         <th>Birthday</th>
                         <th>Gender</th>
                         <th>Class</th>
