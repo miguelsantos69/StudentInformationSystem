@@ -243,7 +243,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/subject/edit/{id}", name="admin_editsubject")
      */
-    public function editsubjecttAction($id, Request $request) {                  //Edit existing subject
+    public function editsubjecttAction($id, Request $request) {                 //Edit existing subject
        
         $subject = $this->getDoctrine()
                 ->getRepository('AppBundle:Subject')

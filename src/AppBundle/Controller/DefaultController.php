@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\Student;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 
 class DefaultController extends Controller {
@@ -18,13 +19,15 @@ class DefaultController extends Controller {
     public function admindashboardAction() {
         return $this->render('index/main-page.html.twig');
     }
-
+    
     /**
-     * @Route("/search/result", name="search")
+     * @Route("/search/teacher", name="search_t")
      */
     public function searchteacherAction(Request $request) {
 
-        $your_value = $request->get("find");
+        $form = $this->createForm(SearchType::class);
+        
+        $your_value = $request->get("search");
 
         $repository = $this->getDoctrine()->getManager();
 
@@ -34,16 +37,39 @@ class DefaultController extends Controller {
                          OR p.surname LIKE :data')
                 ->setParameter('data', $your_value);
 
-
         $result = $query->getResult();
-
-
-        if (!$result) {
-            $this->addFlash('notice', "This teacher doesn't exist");
-        }
-        return $this->render('index/searchresult.html.twig', [
+        
+        return $this->render('index/search_result.html.twig', [
+                    'form' => $form->createView(),
                     'result' => $result
         ]);
+        
+    }
+    
+     /**
+     * @Route("/search/student", name="search_s")
+     */
+    public function searchstudentAction(Request $request) {
+
+        $form = $this->createForm(SearchType::class);
+        
+        $your_value = $request->get("search");
+
+        $repository = $this->getDoctrine()->getManager();
+
+        $query = $repository->createQuery(
+                        'SELECT p FROM AppBundle:Student p
+                         WHERE p.name LIKE :data 
+                         OR p.surname LIKE :data')
+                ->setParameter('data', $your_value);
+
+        $result = $query->getResult();
+        
+        return $this->render('index/search_result.html.twig', [
+                    'form' => $form->createView(),
+                    'result' => $result
+        ]);
+        
     }
 
 }

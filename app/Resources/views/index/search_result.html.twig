@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{#    <form id="form_search" action="{{ path('search_t') }}">
+        <input type="text" class="form-control" placeholder="Search" name ="find">
+        <button type="submit" class="btn btn-default">Search</button>
+    </form>#}
+
+    {{ form_start(form, {'attr': {'name': 'find'}})}}
+    {{ form_widget(form)}}
+    {{ form_end(form)}}
+
+    {% for result in result %} 
+        {{ result.name }}
+        {{ result.surname }}
+        {{ result.email}}
+    {% endfor %} 
+    
+{% endblock %}
+
+
