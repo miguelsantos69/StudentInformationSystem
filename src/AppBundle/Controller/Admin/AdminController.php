@@ -321,7 +321,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/classroom", name="admin_classroom_dashboard")
      */
-    public function showclassroomAction() {                                      //List of all classrooms
+    public function showclassroomAction() {                                     //List of all classrooms
         
         $classrooms = $this->getDoctrine()
                 ->getRepository(Classroom::class)
@@ -341,7 +341,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/classroom/edit/{id}", name="admin_editclassroom")
      */
-    public function editclassroomAction($id, Request $request) {                  //Edit existing classroom
+    public function editclassroomAction($id, Request $request) {                //Edit existing classroom
        
         $classroom = $this->getDoctrine()
                 ->getRepository('AppBundle:Classroom')
@@ -373,7 +373,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/classroom/create", name="admin_createclassroom")
      */
-    public function newclassroomAction(Request $request) {                        //Adding a new classroom
+    public function newclassroomAction(Request $request) {                      //Adding a new classroom
         
         $subject = new Classroom;
 
@@ -403,7 +403,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/classroom/delete/{id}", name="admin_deleteclassroom")
      */
-    public function deleteclassroomAction($id) {                                  //Delete classroom
+    public function deleteclassroomAction($id) {                                //Delete classroom
        
         $em = $this->getDoctrine()->getManager();
         $classroom = $em->getRepository('AppBundle:Classroom')->find($id);
@@ -419,7 +419,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/attendant", name="admin_attendant_dashboard")
      */
-    public function showattendantAction() {                                      //List of all attendants
+    public function showattendantAction() {                                     //List of all attendants
         
         $attendants = $this->getDoctrine()
                 ->getRepository(Attendant::class)
@@ -437,7 +437,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/attendant/create", name="admin_createattendant")
      */
-    public function newattendantAction(Request $request) {                        //Adding a new attendant
+    public function newattendantAction(Request $request) {                      //Adding a new attendant
         
         $attendant = new Attendant;
 
@@ -467,7 +467,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/attendant/edit/{id}", name="admin_editattendant")
      */
-    public function editattendantAction($id, Request $request) {                  //Edit existing attendant
+    public function editattendantAction($id, Request $request) {                //Edit existing attendant
         
         $attendant = $this->getDoctrine()
                 ->getRepository('AppBundle:Attendant')
@@ -499,7 +499,7 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/attendant/delete/{id}", name="admin_deleteattendant")
      */
-    public function deleteattendantAction($id) {                                  //Delete attendant
+    public function deleteattendantAction($id) {                                //Delete attendant
         $em = $this->getDoctrine()->getManager();
         $attendant = $em->getRepository('AppBundle:Attendant')->find($id);
 

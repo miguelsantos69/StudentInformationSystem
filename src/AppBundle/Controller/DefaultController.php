@@ -5,9 +5,6 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManager;
-use AppBundle\Entity\Teacher;
-use AppBundle\Entity\Student;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 
@@ -16,7 +13,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/", name="main_page")
      */
-    public function admindashboardAction() {
+    public function mainAction() {
         return $this->render('index/main-page.html.twig');
     }
     
@@ -25,9 +22,9 @@ class DefaultController extends Controller {
      */
     public function searchteacherAction(Request $request) {
 
-        $form = $this->createForm(SearchType::class);
+        $form = $this->createForm(SearchType::class, 'Type teacher name or surname');       //Search teacher
         
-        $your_value = $request->get("search");
+        $search_value = $request->get("search");
 
         $repository = $this->getDoctrine()->getManager();
 
@@ -35,9 +32,14 @@ class DefaultController extends Controller {
                         'SELECT p FROM AppBundle:Teacher p
                          WHERE p.name LIKE :data 
                          OR p.surname LIKE :data')
-                ->setParameter('data', $your_value);
+                ->setParameter('data', $search_value);
 
         $result = $query->getResult();
+        
+        if(isset ($search_value) && !$result) {
+            
+            $this->addFlash('notice', 'User not found');
+        }
         
         return $this->render('index/search_result.html.twig', [
                     'form' => $form->createView(),
@@ -51,9 +53,9 @@ class DefaultController extends Controller {
      */
     public function searchstudentAction(Request $request) {
 
-        $form = $this->createForm(SearchType::class);
+        $form = $this->createForm(SearchType::class, 'Type student name or surname');       //Search student
         
-        $your_value = $request->get("search");
+        $search_value = $request->get("search");
 
         $repository = $this->getDoctrine()->getManager();
 
@@ -61,10 +63,15 @@ class DefaultController extends Controller {
                         'SELECT p FROM AppBundle:Student p
                          WHERE p.name LIKE :data 
                          OR p.surname LIKE :data')
-                ->setParameter('data', $your_value);
+                ->setParameter('data', $search_value);
 
         $result = $query->getResult();
         
+        if(isset ($search_value) && !$result) {
+            
+            $this->addFlash('notice', 'User not found');
+        }
+       
         return $this->render('index/search_result.html.twig', [
                     'form' => $form->createView(),
                     'result' => $result

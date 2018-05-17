@@ -2,13 +2,13 @@
 
     {% block body %}
 
-        <div class="container">
+
             {% for message in app.flashes('notice') %}
                 <div>
                     {{ message }}
                 </div>
             {% endfor %}
-
+        <div class="container">
             <h2>Classrooms</h2>      
             <table class="table table-striped">
                 <thead>
@@ -31,14 +31,15 @@
                         <td>{{classroom.description}}</td>
                         <td>{{classroom.level}}</td>
                         <td>{{classroom.schoolyearend}}</td>
-                        {% for teacher in classroom.teacher %}
-                        <td>{{teacher.name}}</td>
-                        <td>{{teacher.surname}}</td>
-                        {% endfor %}
-                        {% for student in classroom.student %}
-                        <td>{{student.name}}</td>
-                        <td>{{student.surname}}</td>
-                        {% endfor %}
+                        <td>{% for teacher in classroom.teacher %}
+                            {{[teacher.name, teacher.surname]| join(' ')}} 
+                        {% endfor %}</td>
+                        <td>{% for subject in classroom.subject %}
+                            {{ subject.title }} 
+                        {% endfor %}</td>
+                        <td>{% for student in classroom.student %}
+                            {{ [student.name, student.surname]| join(' ') }} 
+                        {% endfor %}</td>
                         <td><a href="{{ path('admin_deleteclassroom', { 'id': classroom.id }) }}" type="button" class="btn btn-danger">Delete</a></td>
                     </tr>
                     {% endfor %} 

@@ -19,8 +19,7 @@
                         <th>Social Security Number</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Student name</th>
-                        <th>Student surname</th>
+                        <th>Student</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,10 +31,9 @@
                         <td>{{attendant.pesel}}</td>
                         <td>{{attendant.email}}</td>
                         <td>{{attendant.phone}}</td>
-                    {% for student in attendant.student%}
-                        <td>{{student.name}}</td>
-                        <td>{{student.surname}}</td>
-                        {% endfor %}
+                        <td>{% for student in attendant.student%}
+                            {{[student.name, student.surname]|join(' ')}}
+                        {% endfor %}</td>
                         <td><a href="{{ path('admin_deleteattendant', { 'id': attendant.id }) }}" type="button" class="btn btn-danger">Delete</a></td>
                     </tr>
                     {% endfor %} 
