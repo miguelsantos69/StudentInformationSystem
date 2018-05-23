@@ -7,11 +7,11 @@
     {{ form_end(form)}}
 
     {% for result in result %} 
-{#        <a href="{{ path('user_profile', {'id': result.id}) }}">#}
+        <a href="{{ path('student_profile', {'id': result.id}) }}">
         {{ result.name }}
         {{ result.surname }}
         {{ result.email}}
-{#        </a>#}
+        </a>
     {% endfor %} 
     
 {% endblock %}

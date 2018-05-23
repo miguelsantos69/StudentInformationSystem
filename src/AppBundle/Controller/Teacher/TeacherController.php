@@ -10,19 +10,19 @@ use Doctrine\ORM\EntityManager;
 
 class TeacherController extends Controller {
     
-//    /**
-//     * @Route("/teacher/{id}", name="user_profile")
-//     */
-//    public function teacherAction($id) 
-//    {
-//        $user = $this->getDoctrine()
-//                ->getRepository('AppBundle:Teacher')
-//                ->find($id);
-//        
-//        return $this->render('index/user_profile.html.twig', [
-//            'user' => $user
-//        ]);
-//    }
+    /**
+     * @Route("/teacher/{id}", name="teacher_profile")
+     */
+    public function teacherAction($id) 
+    {
+        $teacher = $this->getDoctrine()
+                ->getRepository('AppBundle:Teacher')
+                ->find($id);
+        
+        return $this->render('teacher/teacher_profile.html.twig', [
+            'teacher' => $teacher
+        ]);
+    }
     
     
 }

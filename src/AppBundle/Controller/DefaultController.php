@@ -41,7 +41,7 @@ class DefaultController extends Controller {
             $this->addFlash('notice', 'User not found');
         }
         
-        return $this->render('index/search_result.html.twig', [
+        return $this->render('index/search_teacher_result.html.twig', [
                     'form' => $form->createView(),
                     'result' => $result
         ]);
@@ -71,8 +71,10 @@ class DefaultController extends Controller {
             
             $this->addFlash('notice', 'User not found');
         }
+        
+   
        
-        return $this->render('index/search_result.html.twig', [
+        return $this->render('index/search_student_result.html.twig', [
                     'form' => $form->createView(),
                     'result' => $result
         ]);

@@ -91,7 +91,7 @@ class Student implements UserInterface
      * @ORM\JoinColumn(name="attendant_id", referencedColumnName="id")
      */
     private $attendant;
-        
+  
     public function __construct() 
     {    
         $this->attendant = new ArrayCollection;

@@ -81,7 +81,7 @@ class Teacher implements UserInterface
      */
     private $classroom;
 
-    public function __construct() {
+        public function __construct() {
         
         $this->subject = new ArrayCollection();
         $this->classroom = new ArrayCollection();
@@ -90,6 +90,7 @@ class Teacher implements UserInterface
     public function __toString() {
         
         return $this->name . ' (' . $this->surname . ')';
+
     }
     
     /**
@@ -275,7 +276,7 @@ class Teacher implements UserInterface
     }
 
     public function getRoles() {
-        
+         return 'teacher';
     }
 
     public function getSalt() {
