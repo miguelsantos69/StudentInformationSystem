@@ -1,4 +1,4 @@
 StudentInformationSystem
 ========================
 
-A Symfony project created on March 22, 2018, 12:51 am.
+Simplified version of student management system 
