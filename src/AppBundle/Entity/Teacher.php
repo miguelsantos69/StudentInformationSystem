@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Teacher
  *
@@ -76,6 +77,26 @@ class Teacher implements UserInterface
      */
     private $subject;
     
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload avatar file.")
+     * @Assert\File(mimeTypes={ "image/jpg" })
+     */
+    private $avatar;
+
+    public function getAvatar() 
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar) 
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
     /**
      * @ORM\ManyToMany(targetEntity="Classroom", inversedBy="teacher", cascade={"persist"})
      */

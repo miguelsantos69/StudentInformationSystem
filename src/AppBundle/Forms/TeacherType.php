@@ -5,9 +5,8 @@ namespace AppBundle\Forms;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TeacherType extends AbstractType {
@@ -23,6 +22,8 @@ class TeacherType extends AbstractType {
                 ->add('email', EmailType::class)
                 ->add('password', TextType::class)
                 ->add('phone', TextType::class)
+                ->add('avatar', FileType::class, 
+                        ['label' => 'Avatar (JPG file)'])
                 ->add('add', SubmitType::class);
     }
 
