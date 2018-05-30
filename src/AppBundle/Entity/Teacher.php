@@ -6,14 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Teacher
  *
  * @ORM\Table(name="teacher")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TeacherRepository")
  */
-class Teacher implements UserInterface
-{
+class Teacher implements UserInterface {
+
     /**
      * @var int
      *
@@ -71,27 +72,32 @@ class Teacher implements UserInterface
      * @ORM\Column(name="phone", type="string", length=255, unique=true)
      */
     private $phone;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Subject")
      */
     private $subject;
-    
+
+    /**
+     * @var type text
+     * 
+     * @ORM\Column(name="bio", type="text")
+     */
+    private $bio;
+
     /**
      * @ORM\Column(type="string")
      *
      * @Assert\NotBlank(message="Please, upload avatar file.")
-     * @Assert\File(mimeTypes={ "image/jpg" })
+     * @Assert\File(mimeTypes={ "image/jpeg" })
      */
     private $avatar;
 
-    public function getAvatar() 
-    {
+    public function getAvatar() {
         return $this->avatar;
     }
 
-    public function setAvatar($avatar) 
-    {
+    public function setAvatar($avatar) {
         $this->avatar = $avatar;
 
         return $this;
@@ -102,25 +108,23 @@ class Teacher implements UserInterface
      */
     private $classroom;
 
-        public function __construct() {
-        
+    public function __construct() {
+
         $this->subject = new ArrayCollection();
         $this->classroom = new ArrayCollection();
     }
 
     public function __toString() {
-        
-        return $this->name . ' (' . $this->surname . ')';
 
+        return $this->name . ' (' . $this->surname . ')';
     }
-    
+
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -131,8 +135,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -143,8 +146,7 @@ class Teacher implements UserInterface
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -155,8 +157,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function setSurname($surname)
-    {
+    public function setSurname($surname) {
         $this->surname = $surname;
 
         return $this;
@@ -167,8 +168,7 @@ class Teacher implements UserInterface
      *
      * @return string
      */
-    public function getSurname()
-    {
+    public function getSurname() {
         return $this->surname;
     }
 
@@ -179,8 +179,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function setPesel($pesel)
-    {
+    public function setPesel($pesel) {
         $this->pesel = $pesel;
 
         return $this;
@@ -191,8 +190,7 @@ class Teacher implements UserInterface
      *
      * @return string
      */
-    public function getPesel()
-    {
+    public function getPesel() {
         return $this->pesel;
     }
 
@@ -203,8 +201,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -215,8 +212,7 @@ class Teacher implements UserInterface
      *
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -227,8 +223,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
@@ -239,8 +234,7 @@ class Teacher implements UserInterface
      *
      * @return string
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
@@ -251,8 +245,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
 
         return $this;
@@ -263,8 +256,7 @@ class Teacher implements UserInterface
      *
      * @return string
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
     }
 
@@ -275,8 +267,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
 
         return $this;
@@ -287,8 +278,7 @@ class Teacher implements UserInterface
      *
      * @return string
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -297,7 +287,9 @@ class Teacher implements UserInterface
     }
 
     public function getRoles() {
-         return 'teacher';
+        return [
+            'ROLE_TEACHER'
+        ];
     }
 
     public function getSalt() {
@@ -305,9 +297,8 @@ class Teacher implements UserInterface
     }
 
     public function getUsername(): string {
-        
+        return $this->email;
     }
-
 
     /**
      * Add subject
@@ -316,8 +307,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function addSubject(\AppBundle\Entity\Subject $subject)
-    {
+    public function addSubject(\AppBundle\Entity\Subject $subject) {
         $this->subject[] = $subject;
 
         return $this;
@@ -328,8 +318,7 @@ class Teacher implements UserInterface
      *
      * @param \AppBundle\Entity\Subject $subject
      */
-    public function removeSubject(\AppBundle\Entity\Subject $subject)
-    {
+    public function removeSubject(\AppBundle\Entity\Subject $subject) {
         $this->subject->removeElement($subject);
     }
 
@@ -338,19 +327,15 @@ class Teacher implements UserInterface
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-    
-    function setSubject($subject) 
-    {
-        $this->subject = $subject;
-        
+    public function getSubject() {
         return $this->subject;
     }
 
-    
+    function setSubject($subject) {
+        $this->subject = $subject;
+
+        return $this->subject;
+    }
 
     /**
      * Add classroom
@@ -359,8 +344,7 @@ class Teacher implements UserInterface
      *
      * @return Teacher
      */
-    public function addClassroom(\AppBundle\Entity\Classroom $classroom)
-    {
+    public function addClassroom(\AppBundle\Entity\Classroom $classroom) {
         $this->classroom[] = $classroom;
 
         return $this;
@@ -371,8 +355,7 @@ class Teacher implements UserInterface
      *
      * @param \AppBundle\Entity\Classroom $classroom
      */
-    public function removeClassroom(\AppBundle\Entity\Classroom $classroom)
-    {
+    public function removeClassroom(\AppBundle\Entity\Classroom $classroom) {
         $this->classroom->removeElement($classroom);
     }
 
@@ -381,12 +364,10 @@ class Teacher implements UserInterface
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getClassroom()
-    {
+    public function getClassroom() {
         return $this->classroom;
     }
-    
-    
+
     /**
      * Set classroom
      *
@@ -396,9 +377,30 @@ class Teacher implements UserInterface
     public function setClassroom($classroom) {
 
         $this->classroom = $classroom;
-        
+
         return $this;
     }
 
+    /**
+     * Set bio
+     *
+     * @param string $bio
+     *
+     * @return Teacher
+     */
+    public function setBio($bio) {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    /**
+     * Get bio
+     *
+     * @return string
+     */
+    public function getBio() {
+        return $this->bio;
+    }
 
 }

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Student
@@ -91,6 +92,21 @@ class Student implements UserInterface
      * @ORM\JoinColumn(name="attendant_id", referencedColumnName="id")
      */
     private $attendant;
+    
+    /**
+     * @var type text
+     * 
+     * @ORM\Column(name="bio", type="text")
+     */
+    private $bio;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload avatar file.")
+     * @Assert\File(mimeTypes={ "image/jpeg" })
+     */
+    private $avatar;
   
     public function __construct() 
     {    
@@ -285,7 +301,9 @@ class Student implements UserInterface
     }
 
     public function getRoles() {
-        
+        return [
+            'ROLE_STUDENT'
+        ];
     }
 
     public function getSalt() {
@@ -293,7 +311,7 @@ class Student implements UserInterface
     }
 
     public function getUsername(): string {
-        
+        return $this->email;
     }
 
 
@@ -378,5 +396,53 @@ class Student implements UserInterface
     public function getAttendant()
     {
         return $this->attendant;
+    }
+
+    /**
+     * Set bio
+     *
+     * @param string $bio
+     *
+     * @return Student
+     */
+    public function setBio($bio)
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    /**
+     * Get bio
+     *
+     * @return string
+     */
+    public function getBio()
+    {
+        return $this->bio;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return Student
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

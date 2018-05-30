@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class AttendantType extends AbstractType {
 
@@ -21,7 +22,11 @@ class AttendantType extends AbstractType {
                 ->add('password', TextType::class)
                 ->add('student', EntityType::class, [
                     'class' => 'AppBundle:Student',
-                    'multiple' => true
+                    'multiple' => true,
+                ])
+                ->add('avatar', FileType::class, [
+                    'label' => 'Avatar (JPG file)',
+                    'required' => false
                 ])
                 ->add('create', SubmitType::class);
     }

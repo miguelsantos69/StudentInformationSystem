@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="welcome text-center">Welcome to <br> Student Information System</h1>
+        <div class="col-md-8 mx-auto">
+            <h2 class='login_title text-center'>Login</h2>
+            <hr>
+
+            <form action="{{path('login')}}" method="post" class="form-signin">
+                <span id="reauth-email" class="reauth-email"></span>
+                <p class="input_title">Email</p>
+                <input type="text" name="_email" id="inputEmail" class="login_box" placeholder="email@email.com" required autofocus>
+                <p class="input_title">Password</p>
+                <input type="password" name="_password" id="inputPassword" class="login_box" placeholder="******" required>
+                <div id="remember" class="checkbox">
+                    <label>
+
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary" type="submit">Login</button>
+            </form><!-- /form -->
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+
+    <script src="https://use.typekit.net/ayg4pcz.js"></script>
+    <script>try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }</script>
+{% endblock %}
+
+

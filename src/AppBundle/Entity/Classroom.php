@@ -77,7 +77,7 @@ class Classroom
 
     public function __toString() {
         
-        return $this->mark . ' (' . $this->level . ')' . ' (' . $this->description . ')' . ' (' . $this->schoolYearEnd . ')';
+        return $this->mark . $this->level . ' /' . $this->description . '/' . $this->schoolYearEnd . ' ';
     }
     
     /**

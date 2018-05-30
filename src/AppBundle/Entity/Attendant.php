@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Attendant
@@ -69,6 +70,14 @@ class Attendant
      * 
      */
     private $student;
+    
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload avatar file.")
+     * @Assert\File(mimeTypes={ "image/jpeg" })
+     */
+    private $avatar;
 
     public function __construct() {
         
@@ -262,5 +271,29 @@ class Attendant
     public function getStudent()
     {
         return $this->student;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return Attendant
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

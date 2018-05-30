@@ -1,15 +1,56 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}   {% endblock %}
+
 
 {% block body %}
 
-<div class="container">
-  <div class="row">
-    <div class="col align-self-center">
-      <h1>{{student.name}} </h1>
-    </div>
-  </div>
-</div>
-    
-{% endblock %}
+    <hr class="">
+    <div class="container target">
+        <div class="row">
+            <div class="col-sm-10">
+                <h1 class="">{{student.name}} {{student.surname}}</h1>
+                <button type="button" class="btn btn-info">Send me a message</button>
+                <br>
+            </div>
+
+            <div class="col-sm-2">
+                <a href="/users" class="pull-right">
+                    <img class="img-thumbnail" src="{#{{ asset('uploads/avatars/' ~ teacher.avatar) }}#}"/>
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-3">
+                <ul class="list-group ">
+                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                    <li class="list-group-item"><span class="pull-left"><strong class="">Role:</strong></span>  </li>
+                    <li class="list-group-item"><span class="pull-left"><strong class="">Phone:</strong></span>  </li>
+                    <li class="list-group-item"><span class="pull-left"><strong class="">Class:</strong></span> {{student.classroom}} </li>
+                </ul>
+            </div>
+
+            <div class="col-sm-9" style="" contenteditable="false">
+                <div class="panel panel-default target">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="thumbnail">
+                                    <div class="caption text-center">
+                                        <h3>
+                                            About me
+                                        </h3>
+                                        <p>
+                                           
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    {% endblock %}
 
 

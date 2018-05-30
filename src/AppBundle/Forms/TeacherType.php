@@ -13,7 +13,6 @@ class TeacherType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-
         $builder
                 ->add('name', TextType::class)
                 ->add('surname', TextType::class)
@@ -24,6 +23,7 @@ class TeacherType extends AbstractType {
                 ->add('phone', TextType::class)
                 ->add('avatar', FileType::class, 
                         ['label' => 'Avatar (JPG file)'])
+                ->add('bio', TextType::class)
                 ->add('add', SubmitType::class);
     }
 

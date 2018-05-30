@@ -21,15 +21,18 @@ class ClassroomEditType extends AbstractType {
                 ->add('schoolyearend', IntegerType::class)
                 ->add('subject', EntityType::class, [
                     'class' => 'AppBundle:subject',
-                    'multiple' => true
+                    'multiple' => true,
+                    'required' => false
                 ])
                 ->add('teacher', EntityType::class, [
                     'class' => 'AppBundle:Teacher',
-                    'multiple' => true
+                    'multiple' => true,
+                    'required' => false
                 ])
                 ->add('student', EntityType::class, [
                     'class' => 'AppBundle:Student',
-                    'multiple' => true
+                    'multiple' => true,
+                    'required' => false
                 ])
                 ->add('create', SubmitType::class);
     }

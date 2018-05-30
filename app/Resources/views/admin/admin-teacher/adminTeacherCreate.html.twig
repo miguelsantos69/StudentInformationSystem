@@ -1,11 +1,16 @@
-
+{% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <h2 class="page-header">Add new teacher</h2>
-    {{ form_start(form)}}
-    {{ form_widget(form)}}
-    {{ form_end(form)}}
-
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            
+            <h2>Add new Teacher</h2>
+            
+            {{ form_start(form)}}
+            {{ form_widget(form)}}
+            {{ form_end(form)}}
+        </div>
+    </div>
 {% endblock %}
+
 

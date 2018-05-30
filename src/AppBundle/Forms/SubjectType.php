@@ -17,11 +17,13 @@ class SubjectType extends AbstractType {
                 ->add('title', TextType::class)
                 ->add('classroom', EntityType::class, [
                     'class' => 'AppBundle:Classroom',
-                    'multiple' => true
+                    'multiple' => true,
+                    'required' => false
                 ])
                 ->add('teacher', EntityType::class, [
                     'class' => 'AppBundle:Teacher',
-                    'multiple' => true
+                    'multiple' => true,
+                    'required' => false
                 ])
                 ->add('create', SubmitType::class);
     }

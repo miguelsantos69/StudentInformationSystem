@@ -23,7 +23,8 @@ class StudentEditType extends AbstractType {
                 ->add('email', EmailType::class)
                 ->add('password', TextType::class)
                 ->add('classroom', EntityType::class, [
-                    'class' => 'AppBundle:Classroom'
+                    'class' => 'AppBundle:Classroom',
+                    'required' => false
                 ])
                 ->add('gender', TextType::class)
                 ->add('birthday', DateType::class)
