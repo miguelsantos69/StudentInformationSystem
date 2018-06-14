@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class StudentType extends AbstractType {
 
@@ -23,12 +24,19 @@ class StudentType extends AbstractType {
                 ->add('email', EmailType::class)
                 ->add('password', TextType::class)
                 ->add('classroom', EntityType::class, [
-                    'class' => 'AppBundle:Classroom'
+                    'class' => 'AppBundle:Classroom',
+                     'required' => false
                 ])
                 ->add('gender', ChoiceType::class, [
                     'choices' => ['Male' => 'male',
                         'Female' => 'female']
                 ])
+                ->add('bio', TextType::class, [
+                      'required' => false
+                ])
+                ->add('avatar', FileType::class, 
+                        ['label' => 'Avatar (JPG file)',
+                         'required' => false])
                 ->add('birthday', DateType::class)
                 ->add('create', SubmitType::class);
     }

@@ -81,12 +81,12 @@ class Teacher implements UserInterface {
     /**
      * @var type text
      * 
-     * @ORM\Column(name="bio", type="text")
+     * @ORM\Column(name="bio", type="text", nullable=true)
      */
     private $bio;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      * @Assert\NotBlank(message="Please, upload avatar file.")
      * @Assert\File(mimeTypes={ "image/jpeg" })
@@ -117,6 +117,7 @@ class Teacher implements UserInterface {
     public function __toString() {
 
         return $this->name . ' (' . $this->surname . ')';
+        return $this->roles;
     }
 
     /**
@@ -286,10 +287,9 @@ class Teacher implements UserInterface {
         
     }
 
-    public function getRoles() {
-        return [
-            'ROLE_TEACHER'
-        ];
+    public function getRoles() 
+    {
+        return ['ROLE_Teacher'];
     }
 
     public function getSalt() {

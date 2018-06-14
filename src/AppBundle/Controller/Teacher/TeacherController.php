@@ -2,11 +2,12 @@
 
 namespace AppBundle\Controller\Teacher;
 
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class TeacherController extends Controller {
     
@@ -24,5 +25,18 @@ class TeacherController extends Controller {
         ]);
     }
     
-    
+    /**
+     * @Route("dashboard/teacher/{id}/", name="teacher_dashboard")
+     */
+    public function dashboardAction($id) {
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        if ($user->getId() == $id) {
+            return $this->render('teacher/teacher_dashboard.html.twig');
+        } else {
+            throw new AccessDeniedException('Unable to access this page!');
+        }
+    }
+
 }

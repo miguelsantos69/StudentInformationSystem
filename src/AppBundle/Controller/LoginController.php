@@ -19,6 +19,7 @@ class LoginController extends Controller {
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+
         
         return $this->render('index/login.html.twig', [
                     'last_username' => $lastUsername,
@@ -26,10 +27,10 @@ class LoginController extends Controller {
         ]);
     }
 
-//    /**
-//     * @Route("/logout", name="logout")
-//     */
-//    public function logoutAction() {
-//        
-//    }
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction() {
+        
+    }
 }

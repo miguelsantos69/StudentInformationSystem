@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class StudentEditType extends AbstractType {
 
@@ -27,6 +28,13 @@ class StudentEditType extends AbstractType {
                     'required' => false
                 ])
                 ->add('gender', TextType::class)
+                ->add('bio', TextType::class, [
+                      'required' => false
+                ])
+                ->add('avatar', FileType::class, [
+                        'label' => 'Avatar (JPG file)',
+                        'data_class' => null,
+                        'required' => false])
                 ->add('birthday', DateType::class)
                 ->add('edit', SubmitType::class);
     }

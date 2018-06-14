@@ -96,12 +96,12 @@ class Student implements UserInterface
     /**
      * @var type text
      * 
-     * @ORM\Column(name="bio", type="text")
+     * @ORM\Column(name="bio", type="text", nullable=true)
      */
     private $bio;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      * @Assert\NotBlank(message="Please, upload avatar file.")
      * @Assert\File(mimeTypes={ "image/jpeg" })
@@ -300,10 +300,9 @@ class Student implements UserInterface
         
     }
 
-    public function getRoles() {
-        return [
-            'ROLE_STUDENT'
-        ];
+    public function getRoles() 
+    { 
+        return ['ROLE_Student'];
     }
 
     public function getSalt() {

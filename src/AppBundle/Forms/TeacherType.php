@@ -22,8 +22,11 @@ class TeacherType extends AbstractType {
                 ->add('password', TextType::class)
                 ->add('phone', TextType::class)
                 ->add('avatar', FileType::class, 
-                        ['label' => 'Avatar (JPG file)'])
-                ->add('bio', TextType::class)
+                        ['label' => 'Avatar (JPG file)',
+                         'required' => false])
+                ->add('bio', TextType::class, [
+                        'required' => false
+                ])
                 ->add('add', SubmitType::class);
     }
 
