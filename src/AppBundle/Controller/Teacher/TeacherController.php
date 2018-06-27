@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use AppBundle\Controller\Security\DashboardVoter;
 
 class TeacherController extends Controller {
     
@@ -26,14 +27,21 @@ class TeacherController extends Controller {
     }
     
     /**
+     * 
      * @Route("dashboard/teacher/{id}/", name="teacher_dashboard")
      */
     public function dashboardAction($id) {
 
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $teacher = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        if ($user->getId() == $id) {
-            return $this->render('teacher/teacher_dashboard.html.twig');
+        $data = $this->getDoctrine()
+                ->getRepository('AppBundle:Teacher')
+                ->find($id);
+      
+        if ($teacher->getId() == $id) {
+            return $this->render('teacher/teacher_dashboard.html.twig', [
+                'data' => $data
+            ]);
         } else {
             throw new AccessDeniedException('Unable to access this page!');
         }
